@@ -19,7 +19,6 @@ function solution(answers) {
     if(max === n2) answer.push(2);
     if(max === n3) answer.push(3);
     
-
     console.log(answer);
     return answer;
 
