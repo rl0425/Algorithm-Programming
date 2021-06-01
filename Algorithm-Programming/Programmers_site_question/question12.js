@@ -26,11 +26,6 @@ function solution(number,k){
         }
 
 
-        console.log("index = ", numIndex);
-        console.log("a num = ", num);
-        //if(num === -1 && ((numb.length-k-count)<num )){
-        //    numIndex++;
-        //}
         if(num !== -1  ){
             console.log("num = " + num + " ")
             answer.push(numb[num]);
@@ -45,9 +40,38 @@ function solution(number,k){
         //let a = numb.findIndex(Element => Element === max);
         
     }
-    answers = answer.join('');
+    let answers = answer.join('');
     return answers;
-    console.log(answers);
+
     
 }  // 가장 큰 수를 찾고, 그 수가 자릿수보다 작으면 -1 된 수를 찾는다. 찾을 때 까지 반복) -> 찾은 후 다음 수는 9로 초기화 후 다시 찾는다 -> 찾았을
    // 경우 자리수가 (findindex)가 그 전에 찾은 max값보다 작아야한다. -> 반복
+
+////// 공식적인 풀이방법   
+
+function solution(name) {
+    let sum = 0;
+    for (let i = 0; i < name.length; i++) {
+        let diff = name[i].charCodeAt() - 'A'.charCodeAt();
+        sum += diff > 13 ? 26 - diff : diff;
+    }
+
+    let minMove = name.length - 1;
+    for (let i = 1; i < name.length; i++) {
+        if (name[i] === 'A') {
+            for (var j = i + 1; j < name.length; j++) {
+                if (name[j] !== 'A') {
+                    break;
+                }
+            }
+
+            const left = i - 1;
+            const right = name.length - j;
+            minMove = Math.min(minMove, left > right ? left + right * 2 : left * 2 + right);
+
+            i = j;
+        }
+    }
+
+    return sum + minMove;
+}
